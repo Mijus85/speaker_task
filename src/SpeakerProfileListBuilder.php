@@ -16,7 +16,6 @@ final class SpeakerProfileListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader(): array {
-    $header['id'] = $this->t('ID');
     $header['label'] = [
       'data' => $this->t('Name'),
       'field' => 'label',
@@ -25,7 +24,7 @@ final class SpeakerProfileListBuilder extends EntityListBuilder {
     ];
     $header['topics_expertise'] = [
       'data' => $this->t('Expertise'),
-      'field' => 'topics_expertises',
+      'field' => 'topics_expertise',
       'specifier' => 'label',
       'class' => ['sortable'],
     ];
@@ -35,13 +34,11 @@ final class SpeakerProfileListBuilder extends EntityListBuilder {
     $header['changed'] = $this->t('Updated');
     return $header + parent::buildHeader();
   }
-
   /**
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
     /** @var \Drupal\speaker_profile\SpeakerProfileInterface $entity */
-    $row['id'] = $entity->id();
     $row['label'] = $entity->toLink();
 
     $topics_expertise = $entity->get('topics_expertise')->referencedEntities();
@@ -57,6 +54,10 @@ final class SpeakerProfileListBuilder extends EntityListBuilder {
     $row['uid']['data'] = $entity->get('uid')->view($username_options);
     $row['created']['data'] = $entity->get('created')->view(['label' => 'hidden']);
     $row['changed']['data'] = $entity->get('changed')->view(['label' => 'hidden']);
+
+    // Explicitly add sorting data for the label field.
+    $row['#attributes']['data-sort'] = $entity->label();
+
     return $row + parent::buildRow($entity);
   }
 

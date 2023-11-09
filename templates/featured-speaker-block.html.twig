@@ -1,0 +1,17 @@
+
+<div class="featured-speaker-block">
+  <h1>Bla</h1>
+  {% if content.name %}
+    <h2>{{ content.name }}</h2>
+    <div class="portrait">
+      <img src="{{ content.portrait }}" alt="{{ content.name }}">
+    </div>
+    {% if content.topics %}
+      <div class="topics">
+        <strong>Topics of Expertise:</strong> {{ content.topics }}
+      </div>
+    {% endif %}
+  {% else %}
+    <p>No featured speaker available.</p>
+  {% endif %}
+</div>
