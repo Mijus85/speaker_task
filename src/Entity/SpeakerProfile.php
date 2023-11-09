@@ -108,6 +108,49 @@ final class SpeakerProfile extends RevisionableContentEntityBase implements Spea
       ])
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['portrait'] = BaseFieldDefinition::create('image')
+      ->setLabel(t('Portrait'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'image_image',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'image',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+
+    $fields['topics_expertise'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Topics of expertise'))
+      ->setDescription(t('Our speakers expertise.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setSetting('target_type', 'taxonomy_term')
+      ->setRequired(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => -3,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => -3,
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setRevisionable(TRUE)
       ->setLabel(t('Status'))
