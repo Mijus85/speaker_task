@@ -1,0 +1,5 @@
+name: 'Speaker profile'
+type: module
+description: 'Speaker profile module'
+package: 'custom'
+core_version_requirement: ^10
